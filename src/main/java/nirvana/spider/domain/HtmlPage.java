@@ -8,22 +8,21 @@ import nirvana.spider.download.Parseable;
 public abstract class HtmlPage  implements Parseable {
 	
 	/**
-	 * 商品url
+	 * 网页url
 	 */
 	private String url;
 	
 	/**
-	 * 商品id
+	 * 网页标题(title)
 	 */
-	private String goodsid;
+	private String title;
+	
 	/**
 	 * 网页内容
 	 */
 	private String content;
 	
-	
- 
-
+    //网页中的其他信息元素
 	private Map<String,Object> values = new HashMap<String,Object>(); 
 
 	public String getContent() {
@@ -42,13 +41,6 @@ public abstract class HtmlPage  implements Parseable {
 		this.url = url;
 	}
 
-	public String getGoodsid() {
-		return goodsid;
-	}
-
-	public void setGoodsid(String goodsid) {
-		this.goodsid = goodsid;
-	}
 	
 	public void addFiled(String key,Object value){
 		this.values.put(key, value);
