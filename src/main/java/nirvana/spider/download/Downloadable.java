@@ -4,6 +4,6 @@ import nirvana.spider.domain.HtmlPage;
 
 public interface Downloadable {
 
-	HtmlPage download(String url);
+	HtmlPage download(HtmlPage page);
 
 }

@@ -9,6 +9,8 @@ import org.htmlcleaner.TagNode;
 import org.htmlcleaner.XPatherException;
 
 import nirvana.spider.domain.HtmlPage;
+import nirvana.spider.domain.Zhe800IndexPage;
+import nirvana.spider.domain.Zhe800ListPage;
 import nirvana.spider.download.HttpClientDownload;
 
 public class ParseUtils {
@@ -44,6 +46,28 @@ public class ParseUtils {
 		return null;
 	}
 	
+	
+	public static List<String> getTextsByXPath(TagNode rootNode,String xpath){
+		try {
+			Object[] evaluateXPath = rootNode.evaluateXPath(xpath);
+			if(evaluateXPath.length>0){
+				List<String> attrVals = new ArrayList<String>(evaluateXPath.length);
+				for(Object obj : evaluateXPath){
+					TagNode node = (TagNode)obj;
+					String text = node.getText().toString();
+					if(text != null){
+					   attrVals.add(text);
+					}   
+				}
+				return  attrVals;
+			}		
+		} catch (XPatherException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
 	public static  String getAttrValByXPath(TagNode  rootNode,String xpath,String attrName){
 		try {
 			Object[] evaluateXPath = rootNode.evaluateXPath(xpath);
@@ -55,11 +79,12 @@ public class ParseUtils {
 		} catch (XPatherException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return null;                                                                                                                 
 	}
 	
 	public static List<String> getAttrValsByXPath(TagNode  rootNode,String xpath,String attrName){
 		try {
+			                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 			Object[] evaluateXPath = rootNode.evaluateXPath(xpath);
 			if(evaluateXPath.length>0){
 				List<String> attrVals = new ArrayList<String>(evaluateXPath.length);
@@ -78,9 +103,20 @@ public class ParseUtils {
 		}
 		return null;	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		HttpClientDownload httpClientDownload = new HttpClientDownload();
-		HtmlPage page = httpClientDownload.download("http://shop.zhe800.com/products/ze151012163225000934?jump_source=1&qd_key=qyOwt6Jn");
-		page.parse();
+		String url = "http://www.zhe800.com/";
+		HtmlPage page = new Zhe800IndexPage();
+		page.setUrl(url);
+		HtmlPage download = httpClientDownload.download(page);
+		download.parse();
+		/*String url = "http://www.zhe800.com/ju_tag/taomeishi";
+	    while(url!=null){
+		 Zhe800ListPage page = (Zhe800ListPage)httpClientDownload.download(url);
+		 page.parse();
+		 url=page.getNextPage();
+		 System.out.println(page.getNextPage());
+		 Thread.sleep(1000);
+	   }	*/ 
 	}
 }

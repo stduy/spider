@@ -59,9 +59,7 @@ public class Spider {
 			 evaluateXPath = rootNode.evaluateXPath("//*[@id=\"spec-n1\"]/img");
 			if(evaluateXPath.length>0){
 				TagNode imageNode = (TagNode)evaluateXPath[0];
-				
 				page.addFiled("imgurl", imageNode.getText().toString());
-
 			}
 			
 			String priceUrl = "http://p.3.cn/prices/get?skuid=J_1269262";
